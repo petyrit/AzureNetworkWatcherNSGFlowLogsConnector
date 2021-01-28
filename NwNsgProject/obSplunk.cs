@@ -40,7 +40,8 @@ namespace nsgFunc
 
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateMyCert);
+           // ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateMyCert);
+            ServicePointManager.ServerCertificateValidationCallback += delegate { return true; }; 
 
             int bytesSent = 0;
 
