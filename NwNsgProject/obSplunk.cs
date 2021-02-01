@@ -41,12 +41,14 @@ namespace nsgFunc
             //ServicePointManager.Expect100Continue = true;
            // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
            // ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateMyCert);
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; }; 
+	   ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
 
             int bytesSent = 0;
 
             foreach (var transmission in convertToSplunkList(newClientContent, log))
             {
+	        ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;    
                 var client = new SingleHttpClientInstance();
                 try
                 {
